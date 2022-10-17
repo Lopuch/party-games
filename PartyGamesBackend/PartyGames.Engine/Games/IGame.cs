@@ -1,5 +1,4 @@
-﻿using PartyGames.Engine.DTOs;
-using PartyGames.Engine.Models;
+﻿using PartyGames.Engine.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,9 +7,11 @@ using System.Threading.Tasks;
 
 namespace PartyGames.Engine.Games
 {
-    internal interface IGame
+    public interface IGame
     {
         string Name { get; }
-        List<PlayerDto> GetPlayers();
+        Guid Id { get; }
+        List<Player> GetPlayers();
+        void AddPlayer(Player player);
     }
 }

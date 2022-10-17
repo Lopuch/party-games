@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PartyGames.Engine.Models
 {
-    internal class Player
+    public class Player
     {
         public Guid Id { get; set; }
         public string Name { get; set; }

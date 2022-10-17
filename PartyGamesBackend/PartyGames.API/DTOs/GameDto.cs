@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PartyGames.Engine.DTOs
+namespace PartyGames.API.DTOs
 {
-    public class PlayerDto
+    public class GameDto
     {
-        public Guid Id { get; set; }
         public string? Name { get; set; }
+        public Guid Id { get; set; }
     }
 }
