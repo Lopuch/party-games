@@ -1,0 +1,7 @@
+{
+  "name": "party-games-app",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

@@ -1,0 +1,9 @@
+<div>
+  Login component
+</div>
+
+<div *ngIf="!auth.isLoggedIn()">
+  <ion-button (click)="onLoginClick()">
+    Login
+  </ion-button>
+</div>

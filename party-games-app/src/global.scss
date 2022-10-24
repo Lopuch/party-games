@@ -1,0 +1,75 @@
+
+
+/* Core CSS required for Ionic components to work properly */
+@import "~@ionic/angular/css/core.css";
+
+/* Basic CSS for apps built with Ionic */
+@import "~@ionic/angular/css/normalize.css";
+@import "~@ionic/angular/css/structure.css";
+@import "~@ionic/angular/css/typography.css";
+@import '~@ionic/angular/css/display.css';
+
+/* Optional CSS utils that can be commented out */
+@import "~@ionic/angular/css/padding.css";
+@import "~@ionic/angular/css/float-elements.css";
+@import "~@ionic/angular/css/text-alignment.css";
+@import "~@ionic/angular/css/text-transformation.css";
+@import "~@ionic/angular/css/flex-utils.css";
+
+
+.toast-success {
+  --background: var(--ion-color-primary);
+}
+
+.toast-error {
+  --background: var(--ion-color-danger);
+}
+
+.toast-message {
+  --background: gray;
+}
+
+@font-face {
+  font-family: "trueno";
+  font-style: normal;
+  font-weight: normal;
+  src: url("assets/fonts/trueno/truenorg.otf");
+}
+
+
+@font-face {
+  font-family: 'IMPACTED';
+  font-style: normal;
+  font-weight: normal;
+  src: url('assets/fonts/IMPACTED.ttf');
+}
+
+
+
+
+@font-face {
+  font-family: 'Luckiest Guy';
+  font-style: normal;
+  font-weight: normal;
+  src: url('assets/fonts/luckiestGuy-regular.ttf');
+}
+
+ion-app {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  background-color: skyblue;
+  background-image: -webkit-linear-gradient(90deg, skyblue 0%, steelblue 100%);
+  background-attachment: fixed;
+  background-size: 100% 100%;
+  overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+ion-content{
+  --ion-background-color: transparent;
+}
