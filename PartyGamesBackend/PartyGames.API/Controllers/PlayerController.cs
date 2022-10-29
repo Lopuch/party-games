@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using PartyGames.API.DTOs.Player;
 using PartyGames.Engine.Services;
 
 namespace PartyGames.API.Controllers
@@ -19,9 +20,9 @@ namespace PartyGames.API.Controllers
         }
 
         [HttpPost("login")]
-        public async Task<IActionResult> Login([FromBody]string name)
+        public async Task<IActionResult> Login(Player_LoginDto playerLogin)
         {
-            return Ok(_playerService.Login(name));
+            return Ok(_playerService.Login(playerLogin.Name));
         }
     }
 }

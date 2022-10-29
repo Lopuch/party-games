@@ -40,7 +40,7 @@ namespace PartyGames.Engine.Services
                 throw new ArgumentException($"Player with name '{name}' already exists");
             }
 
-            var player = new Player(new Guid(), nameSanitized);
+            var player = new Player(Guid.NewGuid(), nameSanitized);
 
             return player;
         }

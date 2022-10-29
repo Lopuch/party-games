@@ -12,6 +12,7 @@ export class AuthService {
 
   private readonly userLocalStorageKey = environment.appPrefix+"user";
 
+
   constructor(
     private httpClient: HttpClient,
   ) {
@@ -23,7 +24,7 @@ export class AuthService {
   }
 
   async login(name: string){
-    this.user = await this.httpClient.post<User>(`${environment.apiUrl}login`,{name}).toPromise();
+    this.user = await this.httpClient.post<User>(`${environment.apiUrl}player/login`,{name}).toPromise();
     this.saveUser();
   }
 

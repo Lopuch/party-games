@@ -7,13 +7,22 @@ import {AuthService} from "../../services/shared/auth.service";
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
+  inputName: string;
 
   constructor(
     public auth: AuthService,
-  ) { }
+  ) {
+    this.generateName();
+  }
 
   ngOnInit() {
 
+  }
+
+  private generateName(){
+
+
+    this.inputName = "SuperPlayer"+ Math.ceil(Math.random()*100000);
   }
 
   async onLoginClick() {

@@ -18,7 +18,7 @@ namespace PartyGames.Engine.Games
 
         public SolveEquationGame(string name)
         {
-            Id = new Guid();
+            Id = Guid.NewGuid();
             Name = name;
         }
 

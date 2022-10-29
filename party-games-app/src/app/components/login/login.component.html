@@ -1,9 +1,9 @@
-<div>
-  Login component
-</div>
 
-<div *ngIf="!auth.isLoggedIn()">
-  <ion-button (click)="onLoginClick()">
+<div class="flex flex-col items-center gap-5">
+
+  <ion-input [(ngModel)]="inputName" placeholder="Type your gorgeous nick"></ion-input>
+
+  <ion-button [disabled]="!inputName" (click)="onLoginClick()">
     Login
   </ion-button>
 </div>

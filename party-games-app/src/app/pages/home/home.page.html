@@ -1,9 +1,5 @@
-<!--<ion-content class="ion-padding">-->
-<!--  <div class="tiles-container">-->
-<!--    <app-prsi-tile></app-prsi-tile>-->
-<!--  </div>-->
-<!--</ion-content>-->
-<div class="container">
+
+<div class="flex flex-col items-center gap-5">
   <div class="dancing-text">
     <span>P</span>
     <span>á</span>
@@ -20,11 +16,12 @@
     <!--<span>n</span>-->
   </div>
 
-  <div class="tiles-container">
-    <app-login></app-login>
+  <app-login *ngIf="!auth.isLoggedIn()"></app-login>
+  <app-user-profile *ngIf="auth.isLoggedIn"></app-user-profile>
+
+  <div *ngIf="auth.isLoggedIn()" class="tiles-container">
+
     <app-game-list></app-game-list>
-    <!--<app-prsi-tile></app-prsi-tile>-->
-    <!--<app-drawing-tile></app-drawing-tile>-->
   </div>
 
 </div>

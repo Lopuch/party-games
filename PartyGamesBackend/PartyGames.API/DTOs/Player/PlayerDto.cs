@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PartyGames.API.DTOs
+namespace PartyGames.API.DTOs.Player
 {
     public class PlayerDto
     {
