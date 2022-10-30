@@ -1,4 +1,5 @@
 ﻿using PartyGames.Engine.Services.GameServices;
+using System.Threading;
 using static PartyGames.Engine.Enums.GameEnum;
 
 namespace PartyGames.Engine.Models
@@ -16,11 +17,13 @@ namespace PartyGames.Engine.Models
         private Round? Round { get; set; }
         private List<Answer> RoundAnswers { get; set; } = new List<Answer>();
         private List<Result> Results { get; set; } = new List<Result>();
+        private List<Result> LastResults { get; set; } = new List<Result>();
 
         private GameStates GameState { get; set; } = GameStates.Prepare;
 
         private readonly PeriodicTimer _timer = new(TimeSpan.FromMilliseconds(1000));
-        private readonly CancellationToken _timerCancel = new CancellationToken();
+        private readonly CancellationToken _timerCancelSource;
+        private readonly CancellationToken _timerCancel;
 
 
 
@@ -29,6 +32,9 @@ namespace PartyGames.Engine.Models
             Id = Guid.NewGuid();
             Name = name;
             _gameService = new GameSolveEquationService();
+
+            CancellationTokenSource source = new CancellationTokenSource();
+            previouslyProvidedToken = source.Token;
         }
 
         public List<Player> GetPlayers()
@@ -54,13 +60,13 @@ namespace PartyGames.Engine.Models
             }
 
             NextRound();
+            RunInfiniteClock();
+
         }
 
-        private void NextRound()
+        private void Finish()
         {
-            RoundAnswers.Clear();
-            Round = _gameService.GenerateNextRound();
-            GameState = GameStates.Play;
+            GameState = GameStates.Finish;
         }
 
         private void EvaluateRound()
@@ -98,18 +104,55 @@ namespace PartyGames.Engine.Models
                         0
                         )
                     );
+
+                playersToSolve.Remove(player);
             }
 
-            roundResults.Reverse();
-            roundResults.ForEach(x => Results.Prepend(x));
+            LastResults.Clear();
+            LastResults.AddRange(roundResults);
 
-
+            Results.AddRange(roundResults);
         }
 
-        private void Finish()
+        private void NextRound()
         {
-            GameState = GameStates.Finish;
+            RoundAnswers.Clear();
+            Round = _gameService.GenerateNextRound();
+            GameState = GameStates.Play;
         }
+
+        private void RunInfiniteClock()
+        {
+            _ = Task.Run(async () =>
+            {
+                while (await _timer.WaitForNextTickAsync(_timerCancel) && !_timerCancel.IsCancellationRequested)
+                {
+                    if(GameState == GameStates.Play)
+                    {
+                        if(Round!.EndTime < DateTime.Now)
+                        {
+                            EvaluateRound();
+                            continue;
+                        }
+                    }
+
+                    if(GameState == GameStates.RoundEvaluation)
+                    {
+                        if(DateTime.Now - Round!.EndTime > TimeSpan.FromSeconds(5))
+                        {
+                            NextRound();
+                            continue;
+                        }
+                    }
+
+                    if(GameS)
+                }
+            });
+        }
+
+        
+
+        
 
         public void SelectOption(Player player, int optionIndex)
         {
@@ -135,6 +178,21 @@ namespace PartyGames.Engine.Models
                 option,
                 DateTime.Now
                 ));
+        }
+
+        public List<Result> GetLastResults()
+        {
+            return LastResults.ToList();
+        }
+
+        public Round? GetRound()
+        {
+            return Round;
+        }
+
+        public GameStates GetGameState()
+        {
+            return GameState;
         }
     }
 }

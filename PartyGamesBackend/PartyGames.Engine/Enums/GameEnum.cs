@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PartyGames.Engine.Enums
 {
-    internal class GameEnum
+    public class GameEnum
     {
         public enum GameStates
         {
