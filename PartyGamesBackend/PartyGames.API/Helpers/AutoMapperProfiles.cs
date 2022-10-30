@@ -9,6 +9,9 @@ namespace PartyGames.API.Helpers
         public AutoMapperProfiles()
         {
             CreateMap<IGame, GameDto>();
+            CreateMap<Round, RoundDto>();
+            CreateMap<RoundTitle, RoundTitleDto>();
+            CreateMap<RoundOption, RoundOptionDto>();
         }
     }
 }

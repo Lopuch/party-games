@@ -7,7 +7,7 @@ namespace PartyGames.API.DTOs
         public RoundTitleDto Title { get; set; }
         public List<RoundOptionDto> Options { get; set; }
 
-        public RoundDto(RoundTitle title, List<RoundOption> options)
+        public RoundDto(RoundTitleDto title, List<RoundOptionDto> options)
         {
             Title = title;
             Options = options;

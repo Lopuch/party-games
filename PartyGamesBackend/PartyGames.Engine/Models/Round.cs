@@ -10,11 +10,15 @@ namespace PartyGames.Engine.Models
     {
         public RoundTitle Title { get; set; }
         public List<RoundOption> Options { get; set; }
+        public DateTime StartTime { get; set; }
+        public DateTime EndTime { get; set; }
 
-        public Round(RoundTitle title, List<RoundOption> options)
+        public Round(RoundTitle title, List<RoundOption> options, DateTime startTime, DateTime dateTime)
         {
             Title = title;
             Options = options;
+            StartTime = startTime;
+            EndTime = dateTime;
         }
     }
 }
