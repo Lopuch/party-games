@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using PartyGames.Engine.Games;
+using PartyGames.Engine.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,7 +30,7 @@ namespace PartyGames.Engine.Services
                 throw new ArgumentException("A game with this name already exists");
             }
 
-            var game = new SolveEquationGame(sanitizedName);
+            var game = new Game(sanitizedName);
 
             return game;
         }

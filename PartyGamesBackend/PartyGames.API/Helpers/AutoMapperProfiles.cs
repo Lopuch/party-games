@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using PartyGames.API.DTOs;
-using PartyGames.Engine.Games;
+using PartyGames.Engine.Models;
 
 namespace PartyGames.API.Helpers
 {

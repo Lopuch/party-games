@@ -1,11 +1,10 @@
-﻿using PartyGames.Engine.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PartyGames.Engine.Games
+namespace PartyGames.Engine.Models
 {
     public interface IGame
     {

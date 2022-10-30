@@ -1,5 +1,7 @@
 ﻿using NCalc;
 using PartyGames.Engine.Enums;
+using PartyGames.Engine.Extensions;
+using PartyGames.Engine.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,16 +11,61 @@ using static PartyGames.Engine.Enums.SolveEquationEnums;
 
 namespace PartyGames.Engine.Services.GameServices
 {
-    internal class SolveEquationService
+    internal class GameSolveEquationService : IGameService
     {
         Random _random = new Random();
 
-        public SolveEquationService()
+
+
+        public GameSolveEquationService()
         {
+            
+        }
+
+        public Round GenerateNextRound()
+        {
+            var optionsCount = 4;
+
+            var options = new List<RoundOption>();
+
+            for(int i= 0; i < optionsCount; i++)
+            {
+                options.Add(
+                    GenerateUniqueOption(options, i == 0)
+                    );
+            }
+
+            options.Shuffle();
+
+            var title = new RoundTitle(options.First(x => x.IsCorrect).Text);
+
+            return new Round(
+                title,
+                options
+                );
 
         }
 
-        public List<int> GenerateOperands(int count, int minAndMaxValue)
+        private RoundOption GenerateUniqueOption(List<RoundOption> options, bool isCorrect)
+        {
+            while (true)
+            {
+                var operands = GenerateOperands(3, 10);
+                var operators = GenerateOperators(3);
+                var equationString = GetStringEquation(operands, operators);
+                var option = new RoundOption(
+                    equationString,
+                    isCorrect
+                    );
+
+                if (!options.Any(x => x.Text == equationString))
+                {
+                    return option;
+                }
+            }
+        }
+
+        internal List<int> GenerateOperands(int count, int minAndMaxValue)
         {
             if(count <= 0)
             {
@@ -37,16 +84,16 @@ namespace PartyGames.Engine.Services.GameServices
 
         }
 
-        public List<Operator> GenerateOperators(int nubmersCount)
+        internal List<Operator> GenerateOperators(int numbersCount)
         {
-            if(nubmersCount <= 1)
+            if(numbersCount <= 1)
             {
                 throw new ArgumentOutOfRangeException("NumbersCount must be greater than one");
             }
 
             var res = new List<Operator>();
 
-            for(int i=0; i < nubmersCount -1; i++)
+            for(int i=0; i < numbersCount - 1; i++)
             {
                 res.Add(GenerateOperator());
             }
@@ -54,7 +101,7 @@ namespace PartyGames.Engine.Services.GameServices
             return res;
         }
 
-        public Operator GenerateOperator()
+        internal Operator GenerateOperator()
         {
             var rand = _random.Next(0, 100);
 
@@ -76,7 +123,7 @@ namespace PartyGames.Engine.Services.GameServices
             return Operator.Divide;
         }
 
-        public double Solve(List<int> operands, List<Operator> operators)
+        internal double Solve(List<int> operands, List<Operator> operators)
         {
             var expression = GetStringEquation(operands, operators);
 
@@ -117,7 +164,7 @@ namespace PartyGames.Engine.Services.GameServices
             return string.Join(" ", parts);
         }
 
-        public string OperatorToString(Operator @operator)
+        internal string OperatorToString(Operator @operator)
         {
             switch(@operator)
             {

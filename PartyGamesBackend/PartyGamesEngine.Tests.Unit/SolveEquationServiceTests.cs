@@ -11,11 +11,11 @@ namespace Engine.Tests.Unit
 {
     public class SolveEquationServiceTests
     {
-        private readonly SolveEquationService _sut;
+        private readonly GameSolveEquationService _sut;
 
         public SolveEquationServiceTests()
         {
-            _sut = new SolveEquationService();
+            _sut = new GameSolveEquationService();
         }
 
         [Theory]
