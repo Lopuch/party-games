@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PartyGames.API.DTOs;
+using PartyGames.API.DTOs.Game;
 using PartyGames.Engine.Services;
 
 namespace PartyGames.API.Controllers
@@ -20,17 +21,17 @@ namespace PartyGames.API.Controllers
         }
 
         [HttpPost("create")]
-        public async Task<IActionResult> Create(string gameName)
+        public async Task<IActionResult> Create(Game_CreateDto gameDto)
         {
-            _lobbyService.CreateGame(gameName);
-
-            return Ok();
+            return Ok(
+                _mapper.Map<GameDto>(_lobbyService.CreateGame(gameDto.Name))
+                );
         }
 
         [HttpPost("join")]
-        public async Task<IActionResult> Join(Guid gameId, Guid playerId)
+        public async Task<IActionResult> Join(Game_JoinDto gameDto)
         {
-            _lobbyService.JoinGame(gameId, playerId);
+            _lobbyService.JoinGame(gameDto.GameId, gameDto.PlayerId);
 
             return Ok();
         }
@@ -47,7 +48,9 @@ namespace PartyGames.API.Controllers
         public async Task<IActionResult> GetGame(Guid gameId)
         {
             return Ok(
-                _lobbyService.GetGameById(gameId)
+                _mapper.Map<GameDto>(
+                    _lobbyService.GetGameById(gameId)
+                    )
                 );
         }
     }

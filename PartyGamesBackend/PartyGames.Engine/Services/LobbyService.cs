@@ -32,6 +32,8 @@ namespace PartyGames.Engine.Services
 
             var game = new Game(sanitizedName);
 
+            Games.Add(game);
+
             return game;
         }
 

@@ -22,7 +22,7 @@ namespace PartyGames.Engine.Models
         private GameStates GameState { get; set; } = GameStates.Prepare;
 
         private readonly PeriodicTimer _timer = new(TimeSpan.FromMilliseconds(1000));
-        private readonly CancellationToken _timerCancelSource;
+        private readonly CancellationTokenSource _timerCancelSource;
         private readonly CancellationToken _timerCancel;
 
 
@@ -33,8 +33,8 @@ namespace PartyGames.Engine.Models
             Name = name;
             _gameService = new GameSolveEquationService();
 
-            CancellationTokenSource source = new CancellationTokenSource();
-            previouslyProvidedToken = source.Token;
+            _timerCancelSource = new CancellationTokenSource();
+            _timerCancel = _timerCancelSource.Token;
         }
 
         public List<Player> GetPlayers()
@@ -67,6 +67,7 @@ namespace PartyGames.Engine.Models
         private void Finish()
         {
             GameState = GameStates.Finish;
+            _timerCancelSource.Cancel();
         }
 
         private void EvaluateRound()
@@ -145,7 +146,10 @@ namespace PartyGames.Engine.Models
                         }
                     }
 
-                    if(GameS)
+                    if(GameState == GameStates.Finish)
+                    {
+                        return;
+                    }
                 }
             });
         }

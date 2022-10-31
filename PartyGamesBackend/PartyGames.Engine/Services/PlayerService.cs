@@ -41,6 +41,7 @@ namespace PartyGames.Engine.Services
             }
 
             var player = new Player(Guid.NewGuid(), nameSanitized);
+            Players.Add(player);
 
             return player;
         }

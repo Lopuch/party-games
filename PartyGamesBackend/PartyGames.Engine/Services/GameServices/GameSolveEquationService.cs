@@ -41,7 +41,9 @@ namespace PartyGames.Engine.Services.GameServices
 
             return new Round(
                 title,
-                options
+                options,
+                DateTime.Now,
+                DateTime.Now.AddMinutes(1)
                 );
 
         }
