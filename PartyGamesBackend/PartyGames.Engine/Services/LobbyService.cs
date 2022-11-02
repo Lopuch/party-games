@@ -10,14 +10,16 @@ namespace PartyGames.Engine.Services
 {
     public class LobbyService
     {
-        private List<IGame> Games { get; set; } = new List<IGame>();
+        
 
         private readonly IMapper _mapper;
+        private readonly PartyGamesEngine _engine;
         private readonly PlayerService _playerService;
 
-        public LobbyService(IMapper mapper, PlayerService playerService)
+        public LobbyService(IMapper mapper, PartyGamesEngine engine, PlayerService playerService)
         {
             _mapper = mapper;
+            _engine = engine;
             _playerService = playerService;
         }
 
@@ -25,21 +27,21 @@ namespace PartyGames.Engine.Services
         {
             var sanitizedName = SanitizeName(name);
 
-            if(Games.Any(x=>x.Name == sanitizedName))
+            if(_engine.Games.Any(x=>x.Name == sanitizedName))
             {
                 throw new ArgumentException("A game with this name already exists");
             }
 
             var game = new Game(sanitizedName);
 
-            Games.Add(game);
+            _engine.Games.Add(game);
 
             return game;
         }
 
         public List<IGame> GetGames()
         {
-            return Games;
+            return _engine.Games;
         }
 
         public void JoinGame(Guid gameId, Guid playerId)
@@ -51,9 +53,29 @@ namespace PartyGames.Engine.Services
             
         }
 
+        public void StartGame(Guid gameId, Guid playerId)
+        {
+            var player = _playerService.GetPlayerById(playerId);
+            var game = GetGameById(gameId);
+
+            if(!game.GetPlayers().Any(x=> x == player))
+            {
+                throw new ArgumentException("Only joined players can start the game");
+            }
+
+            var state = game.GetGameState();
+
+            if(state != Enums.GameEnum.GameStates.Prepare)
+            {
+                throw new InvalidOperationException("The game is not in the Prepare state");
+            }
+
+            game.Start();
+        }
+
         public IGame GetGameById(Guid gameId)
         {
-            var game = Games.FirstOrDefault(x => x.Id == gameId);
+            var game = _engine.Games.FirstOrDefault(x => x.Id == gameId);
 
             if(game == null)
             {

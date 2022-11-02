@@ -8,4 +8,8 @@
   <div *ngIf="gameService.game as game">
     gameId: {{game.id}}, name: {{game.name}}
   </div>
+
+  <ion-button (click)="onStartGameClick()" >
+    Start game
+  </ion-button>
 </ion-content>

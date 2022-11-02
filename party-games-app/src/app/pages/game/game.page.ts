@@ -1,6 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from "@angular/core";
 import {ActivatedRoute} from "@angular/router";
-import {NavController} from "@ionic/angular";
 import {GameService} from "../../services/game/game.service";
 
 @Component({
@@ -8,9 +7,11 @@ import {GameService} from "../../services/game/game.service";
   templateUrl: './game.page.html',
   styleUrls: ['./game.page.scss'],
 })
-export class GamePage implements OnInit {
+export class GamePage implements OnInit, OnDestroy {
 
   gameId: string;
+
+  interval;
 
   constructor(
     private route: ActivatedRoute,
@@ -26,6 +27,19 @@ export class GamePage implements OnInit {
     this.gameService.init(this.gameId);
 
     await this.gameService.reloadGame();
+
+    this.interval = setInterval(async () => {
+      await this.gameService.reloadGame();
+    }, 1000);
   }
 
+  ngOnDestroy() {
+    if(this.interval){
+      clearInterval(this.interval);
+    }
+  }
+
+  async onStartGameClick() {
+    await this.gameService.startGame();
+  }
 }

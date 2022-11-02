@@ -27,7 +27,10 @@ export class GameService {
   }
 
   async joinGame(gameId: string){
-    return await this.httpClient.post(`${environment.apiUrl}game/join`,{gameId, playerId: this.authService.user.id}).toPromise();
+    return await this.httpClient.post(`${environment.apiUrl}game/join`,{
+      gameId,
+      playerId: this.authService.user.id
+    }).toPromise();
   }
 
   async reloadGame(){
@@ -36,5 +39,12 @@ export class GameService {
     }
 
     this.game = await this.httpClient.get<Game>(`${environment.apiUrl}game/getGame/${this.gameId}`).toPromise();
+  }
+
+  async startGame(){
+    await this.httpClient.post<void>(`${environment.apiUrl}game/startGame`, {
+      gameId: this.gameId,
+      playerId: this.authService.user.id
+    }).toPromise();
   }
 }

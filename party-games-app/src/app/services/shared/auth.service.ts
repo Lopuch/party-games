@@ -28,6 +28,14 @@ export class AuthService {
     this.saveUser();
   }
 
+  async relogin(){
+    this.user = await this.httpClient.post<User>(`${environment.apiUrl}player/relogin`,{
+      name: this.user.name,
+      id: this.user.id,
+    }).toPromise();
+    this.saveUser();
+  }
+
   private loadUser(){
     this.user = JSON.parse(localStorage.getItem(this.userLocalStorageKey));
   }

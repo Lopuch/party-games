@@ -10,5 +10,6 @@ namespace PartyGames.Engine.Services.GameServices
     public interface IGameService
     {
         Round GenerateNextRound();
+
     }
 }

@@ -1,3 +1,4 @@
+using PartyGames.Engine;
 using PartyGames.Engine.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,6 +10,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddAutoMapper(typeof(Program).Assembly);
+builder.Services.AddSingleton<PartyGamesEngine>();
 builder.Services.AddSingleton<PlayerService>();
 builder.Services.AddSingleton<LobbyService>();
 builder.Services.AddCors(options =>

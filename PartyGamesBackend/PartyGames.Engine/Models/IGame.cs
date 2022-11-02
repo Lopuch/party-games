@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PartyGames.Engine.Enums;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,5 +13,7 @@ namespace PartyGames.Engine.Models
         Guid Id { get; }
         List<Player> GetPlayers();
         void AddPlayer(Player player);
+        GameEnum.GameStates GetGameState();
+        void Start();
     }
 }

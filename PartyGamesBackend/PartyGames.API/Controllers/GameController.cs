@@ -53,5 +53,13 @@ namespace PartyGames.API.Controllers
                     )
                 );
         }
+
+        [HttpPost("startGame")]
+        public async Task<IActionResult> StartGame(Game_StartDto dto)
+        {
+            _lobbyService.StartGame(dto.GameId, dto.PlayerId);
+
+            return Ok();
+        }
     }
 }

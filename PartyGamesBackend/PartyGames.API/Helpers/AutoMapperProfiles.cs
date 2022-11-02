@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using PartyGames.API.DTOs;
+using PartyGames.API.DTOs.Player;
 using PartyGames.Engine.Models;
 
 namespace PartyGames.API.Helpers
@@ -12,6 +13,7 @@ namespace PartyGames.API.Helpers
             CreateMap<Round, RoundDto>();
             CreateMap<RoundTitle, RoundTitleDto>();
             CreateMap<RoundOption, RoundOptionDto>();
+            CreateMap<Player, PlayerDto>();
         }
     }
 }

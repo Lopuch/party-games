@@ -22,7 +22,19 @@ namespace PartyGames.API.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> Login(Player_LoginDto playerLogin)
         {
-            return Ok(_playerService.Login(playerLogin.Name));
+            return Ok(
+                _mapper.Map<PlayerDto>(
+                    _playerService.Login(playerLogin.Name)
+                    ));
+        }
+
+        [HttpPost("relogin")]
+        public async Task<IActionResult> Relogin(Player_ReloginDto dto)
+        {
+            return Ok(
+                _mapper.Map<PlayerDto>(
+                    _playerService.ReLogin(dto.Name, dto.Id)
+                    ));
         }
     }
 }

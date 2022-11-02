@@ -46,6 +46,26 @@ namespace PartyGames.Engine.Services
             return player;
         }
 
+        public Player ReLogin(string name, Guid playerId)
+        {
+            if(playerId == Guid.Empty)
+            {
+                throw new ArgumentException("PlayerId should not be an emplty guid");
+            }
+
+            var player = Players.FirstOrDefault(x => x.Id == playerId);
+
+            if(player == null)
+            {
+                player = new Player(playerId, name);
+                Players.Add(player);
+            }
+
+            player.Name = name;
+
+            return player;
+        }
+
         private string SanitizeName(string name)
         {
             return name.Trim();
