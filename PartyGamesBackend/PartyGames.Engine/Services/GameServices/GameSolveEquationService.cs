@@ -79,7 +79,11 @@ namespace PartyGames.Engine.Services.GameServices
 
             for(int i = 0; i < count; i++)
             {
-                res.Add(_random.Next(minAndMaxValue, minAndMaxValue));
+                int number;
+
+                while ((number = _random.Next(-minAndMaxValue, minAndMaxValue)) == 0) ;
+
+                res.Add(number);
             }
 
             return res;
