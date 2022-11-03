@@ -65,29 +65,29 @@ namespace Engine.Tests.Unit
             result.Count.Should().Be(expected);
         }
 
-        [Theory]
-        [MemberData(nameof(Solve_Data))]
-        public void Solve_ShouldReturnCorrectResult_WhenInputsAreCorrect(
-            List<int> operands,
-            List<Operator> operators,
-            double expected)
-        {
-            var result = _sut.Solve(operands, operators);
+        //[Theory]
+        //[MemberData(nameof(Solve_Data))]
+        //public void Solve_ShouldReturnCorrectResult_WhenInputsAreCorrect(
+        //    List<int> operands,
+        //    List<Operator> operators,
+        //    double expected)
+        //{
+        //    var result = _sut.Solve(operands, operators);
 
-            result.Should().BeApproximately(expected, 0.001);
-        }
+        //    result.Should().BeApproximately(expected, 0.001);
+        //}
 
 
-        public static IEnumerable<object[]> Solve_Data()
-        {
-            yield return new object[] { new List<int> { 1, 1}, new List<Operator> { Operator.Add }, 2d };
-            yield return new object[] { new List<int> { -1, -1 }, new List<Operator> { Operator.Add }, -2d };
-            yield return new object[] { new List<int> { 1, 2, 3, 4, 5 }, new List<Operator> { 
-                Operator.Add, 
-                Operator.Substract,
-                Operator.Multiply,
-                Operator.Divide
-            }, 0.6d };
-        }
+        //public static IEnumerable<object[]> Solve_Data()
+        //{
+        //    yield return new object[] { new List<int> { 1, 1}, new List<Operator> { Operator.Add }, 2d };
+        //    yield return new object[] { new List<int> { -1, -1 }, new List<Operator> { Operator.Add }, -2d };
+        //    yield return new object[] { new List<int> { 1, 2, 3, 4, 5 }, new List<Operator> { 
+        //        Operator.Add, 
+        //        Operator.Substract,
+        //        Operator.Multiply,
+        //        Operator.Divide
+        //    }, 0.6d };
+        //}
     }
 }

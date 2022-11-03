@@ -7,9 +7,35 @@
 <ion-content>
   <div *ngIf="gameService.game as game">
     gameId: {{game.id}}, name: {{game.name}}
+
+    <div>
+      {{game | json}}
+    </div>
+
+    <ion-button *ngIf="game.gameState === gameStates.prepare" (click)="onStartGameClick()">
+      Start game
+    </ion-button>
+
+
+    <div *ngIf="game.gameState === gameStates.play || game.gameState === gameStates.roundEvaluation">
+      <div class="title">
+        {{game.round.title.text}}
+      </div>
+
+      <div class="flex flex-wrap">
+        <div *ngFor="let option of game.round.options" style="width: 50%; text-align: center">
+
+          <ion-button>
+            <div style="font-size: 20px">
+              {{option.text}}
+            </div>
+          </ion-button>
+
+        </div>
+      </div>
+    </div>
+
   </div>
 
-  <ion-button (click)="onStartGameClick()" >
-    Start game
-  </ion-button>
+
 </ion-content>

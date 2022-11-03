@@ -1,6 +1,7 @@
 import {Component, OnDestroy, OnInit} from "@angular/core";
 import {ActivatedRoute} from "@angular/router";
 import {GameService} from "../../services/game/game.service";
+import {GameStates_Enum} from "../../models/game";
 
 @Component({
   selector: 'app-game',
@@ -8,6 +9,8 @@ import {GameService} from "../../services/game/game.service";
   styleUrls: ['./game.page.scss'],
 })
 export class GamePage implements OnInit, OnDestroy {
+
+  gameStates = GameStates_Enum;
 
   gameId: string;
 

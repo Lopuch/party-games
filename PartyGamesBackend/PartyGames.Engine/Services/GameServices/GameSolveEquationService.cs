@@ -30,8 +30,10 @@ namespace PartyGames.Engine.Services.GameServices
 
             for(int i= 0; i < optionsCount; i++)
             {
+                var isCorrect = i == 0;
+
                 options.Add(
-                    GenerateUniqueOption(options, i == 0)
+                    GenerateUniqueOption(options, isCorrect)
                     );
             }
 
@@ -39,11 +41,13 @@ namespace PartyGames.Engine.Services.GameServices
 
             var title = new RoundTitle(options.First(x => x.IsCorrect).Text);
 
+            options.ForEach(x => x.Text = Solve(x.Text).ToString());
+
             return new Round(
                 title,
                 options,
                 DateTime.Now,
-                DateTime.Now.AddMinutes(1)
+                DateTime.Now.AddSeconds(10)
                 );
 
         }
@@ -129,15 +133,14 @@ namespace PartyGames.Engine.Services.GameServices
             return Operator.Divide;
         }
 
-        internal double Solve(List<int> operands, List<Operator> operators)
+        internal double Solve(string expression)
         {
-            var expression = GetStringEquation(operands, operators);
-
             Expression e = new Expression(expression);
             var result = e.Evaluate();
 
             return Convert.ToDouble(result);
         }
+
 
         private string GetStringEquation(List<int> operands, List<Operator> operators)
         {
