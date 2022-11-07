@@ -6,11 +6,9 @@
 
 <ion-content>
   <div *ngIf="gameService.game as game">
-    gameId: {{game.id}}, name: {{game.name}}
+    {{game.name}}
 
-    <div>
-      {{game | json}}
-    </div>
+
 
     <ion-button *ngIf="game.gameState === gameStates.prepare" (click)="onStartGameClick()">
       Start game
@@ -22,10 +20,15 @@
         {{game.round.title.text}}
       </div>
 
+      <div class="game-state-wrapper">
+        {{getGameStateText()}}
+      </div>
+
+      <!-- Options -->
       <div class="flex flex-wrap">
         <div *ngFor="let option of game.round.options" style="width: 50%; text-align: center">
 
-          <ion-button>
+          <ion-button (click)="onOptionClick(option)">
             <div style="font-size: 20px">
               {{option.text}}
             </div>
@@ -33,9 +36,31 @@
 
         </div>
       </div>
+
+      <!-- Last results -->
+      <div>
+        Last results:
+      </div>
+      <div *ngFor="let lastResult of game.lastResults; let i = index">
+        {{i+1}}.) {{lastResult.playerName}}: {{lastResult.points}} pts.
+      </div>
+
+      <!-- Results -->
+      <div class="mt-5">
+        Overall results:
+      </div>
+      <div *ngFor="let result of game.results">
+        {{result.playerName}}: {{result.points}} pts.
+      </div>
+    </div>
+
+    <div class="mt-20">
+      {{game | json}}
     </div>
 
   </div>
+
+
 
 
 </ion-content>

@@ -3,6 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {Game} from "../../models/game";
 import {environment} from "../../../environments/environment";
 import {AuthService} from "../shared/auth.service";
+import {RoundOption} from "../../models/round-option";
 
 @Injectable({
   providedIn: 'root'
@@ -45,6 +46,16 @@ export class GameService {
     await this.httpClient.post<void>(`${environment.apiUrl}game/startGame`, {
       gameId: this.gameId,
       playerId: this.authService.user.id
+    }).toPromise();
+  }
+
+  async selectOption(option: RoundOption){
+    const optionIndex = this.game.round?.options?.indexOf(option);
+
+    await this.httpClient.post<void>(`${environment.apiUrl}game/selectOption`, {
+      gameId: this.gameId,
+      playerId: this.authService.user.id,
+      optionIndex,
     }).toPromise();
   }
 }

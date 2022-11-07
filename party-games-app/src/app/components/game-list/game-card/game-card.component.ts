@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from "@angular/core";
+import {Game} from "../../../models/game";
+import {GameService} from "../../../services/game/game.service";
+import {NavController} from "@ionic/angular";
 
 @Component({
   selector: 'app-game-card',
@@ -7,8 +10,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class GameCardComponent implements OnInit {
 
-  constructor() { }
+  @Input() game: Game;
+
+  constructor(
+    private gameService: GameService,
+    private navController: NavController,
+  ) { }
 
   ngOnInit() {}
 
+  async onJoinGameClick() {
+    await this.gameService.joinGame(this.game.id);
+
+    this.navController.navigateForward(["game", this.game.id]).then();
+  }
 }

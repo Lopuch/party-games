@@ -26,6 +26,6 @@ export class LoginComponent implements OnInit {
   }
 
   async onLoginClick() {
-    await this.auth.login("lopuch");
+    await this.auth.login(this.inputName);
   }
 }

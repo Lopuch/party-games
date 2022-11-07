@@ -2,6 +2,7 @@ import {Component, OnDestroy, OnInit} from "@angular/core";
 import {ActivatedRoute} from "@angular/router";
 import {GameService} from "../../services/game/game.service";
 import {GameStates_Enum} from "../../models/game";
+import {RoundOption} from "../../models/round-option";
 
 @Component({
   selector: 'app-game',
@@ -44,5 +45,27 @@ export class GamePage implements OnInit, OnDestroy {
 
   async onStartGameClick() {
     await this.gameService.startGame();
+  }
+
+  async onOptionClick(option: RoundOption) {
+    await this.gameService.selectOption(option);
+  }
+
+  getGameStateText() {
+    switch (this.gameService.game.gameState)
+    {
+
+      case this.gameStates.prepare:
+        return "Wait for your friend to join and than pres 'Start the game'";
+
+      case this.gameStates.play:
+        return "Select an option";
+
+      case this.gameStates.roundEvaluation:
+        return "Prepare for the next round";
+
+      case this.gameStates.finish:
+        return "Congrats to the winner"
+    }
   }
 }

@@ -13,10 +13,11 @@ namespace PartyGames.Engine.Models
         public bool IsCorrect { get; set; }
         public DateTime Time { get; set; }
 
-        public Answer(Player player, RoundOption option, DateTime time)
+        public Answer(Player player, bool isCorrect, RoundOption option, DateTime time)
         {
             Player = player;
             Option = option;
+            IsCorrect = isCorrect;
             Time = time;
         }
     }

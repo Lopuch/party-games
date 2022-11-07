@@ -3,6 +3,7 @@ using PartyGames.Engine.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -71,6 +72,26 @@ namespace PartyGames.Engine.Services
             }
 
             game.Start();
+        }
+
+        public void SelectOption(Guid gameId, Guid playerId, int optionIndex)
+        {
+            var player = _playerService.GetPlayerById(playerId);
+            var game = GetGameById(gameId);
+
+            if(!game.GetPlayers().Any(x=>x == player))
+            {
+                throw new ArgumentException("Only joined players cas select an option");
+            }
+
+            var state = game.GetGameState();
+
+            if (state != Enums.GameEnum.GameStates.Play)
+            {
+                throw new InvalidOperationException("The game is not in the Play state");
+            }
+
+            game.SelectOption(player, optionIndex);
         }
 
         public IGame GetGameById(Guid gameId)

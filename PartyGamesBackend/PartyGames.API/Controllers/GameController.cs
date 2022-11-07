@@ -61,5 +61,13 @@ namespace PartyGames.API.Controllers
 
             return Ok();
         }
+
+        [HttpPost("selectOption")]
+        public async Task<IActionResult> SelectOption(Game_SelectOptionDto dto)
+        {
+            _lobbyService.SelectOption(dto.GameId, dto.PlayerId, dto.OptionIndex);
+
+            return Ok();
+        }
     }
 }

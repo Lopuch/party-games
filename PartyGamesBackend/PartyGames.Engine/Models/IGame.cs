@@ -15,6 +15,9 @@ namespace PartyGames.Engine.Models
         void AddPlayer(Player player);
         GameEnum.GameStates GetGameState();
         void Start();
+        void SelectOption(Player player, int optionIndex);
         Round? GetRound();
+        List<Result> GetResults();
+        List<Result> GetLastResults();
     }
 }

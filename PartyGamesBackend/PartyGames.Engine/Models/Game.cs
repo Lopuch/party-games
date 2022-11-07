@@ -160,7 +160,7 @@ namespace PartyGames.Engine.Models
 
         public void SelectOption(Player player, int optionIndex)
         {
-            if (GameState == GameStates.Play)
+            if (GameState != GameStates.Play)
             {
                 throw new InvalidOperationException("Game is not in 'Play' state");
             }
@@ -179,14 +179,10 @@ namespace PartyGames.Engine.Models
 
             RoundAnswers.Add(new Answer(
                 player,
+                option.IsCorrect,
                 option,
                 DateTime.Now
                 ));
-        }
-
-        public List<Result> GetLastResults()
-        {
-            return LastResults.ToList();
         }
 
         public Round? GetRound()
@@ -197,6 +193,27 @@ namespace PartyGames.Engine.Models
         public GameStates GetGameState()
         {
             return GameState;
+        }
+
+        public List<Result> GetResults()
+        {
+            var resList = new List<Result>();
+            foreach(var player in Players)
+            {
+                resList.Add(new Result(
+                    player,
+                    Results.Where(x=>x.Player == player).Sum(x=>x.Points)
+                    ));
+            }
+
+            resList = resList.OrderBy(x=>x.Points).ToList();
+
+            return resList.ToList();
+        }
+
+        public List<Result> GetLastResults()
+        {
+            return LastResults.ToList();
         }
 
     }

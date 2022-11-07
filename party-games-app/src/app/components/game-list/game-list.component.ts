@@ -1,6 +1,7 @@
 import {Component, OnInit} from "@angular/core";
 import {GameService} from "../../services/game/game.service";
 import {NavController} from "@ionic/angular";
+import {GameListService} from "../../services/game/game-list.service";
 
 @Component({
   selector: "app-game-list",
@@ -11,11 +12,13 @@ export class GameListComponent implements OnInit {
 
   constructor(
     public gameService: GameService,
+    public gameListService: GameListService,
     private navController: NavController,
   ) {
   }
 
-  ngOnInit() {
+  async ngOnInit() {
+    await this.gameListService.reloadGames();
   }
 
   async onCreateGameClick() {
