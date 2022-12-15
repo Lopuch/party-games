@@ -13,12 +13,12 @@ namespace PartyGames.Engine.Models
         public DateTime StartTime { get; set; }
         public DateTime EndTime { get; set; }
 
-        public Round(RoundTitle title, List<RoundOption> options, DateTime startTime, DateTime dateTime)
+        public Round(RoundTitle title, List<RoundOption> options, DateTime startTime, DateTime endTime)
         {
             Title = title;
             Options = options;
             StartTime = startTime;
-            EndTime = dateTime;
+            EndTime = endTime;
         }
     }
 }

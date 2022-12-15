@@ -1,31 +1,27 @@
-import {Component, OnDestroy, OnInit} from "@angular/core";
-import {ActivatedRoute} from "@angular/router";
-import {GameService} from "../../services/game/game.service";
+import {Component, Input, OnInit} from "@angular/core";
 import {GameStates_Enum} from "../../models/game";
+import {GameService} from "../../services/game/game.service";
 import {RoundOption} from "../../models/round-option";
 
 @Component({
-  selector: 'app-game-page',
-  templateUrl: './game.page.html',
-  styleUrls: ['./game.page.scss'],
+  selector: "app-game",
+  templateUrl: "./game.component.html",
+  styleUrls: ["./game.component.scss"],
 })
-export class GamePage implements OnInit, OnDestroy {
+export class GameComponent implements OnInit {
+
+  @Input() gameId: string;
 
   gameStates = GameStates_Enum;
-
-  gameId: string;
 
   interval;
 
   constructor(
-    private route: ActivatedRoute,
     public gameService: GameService,
   ) {
-
   }
 
   async ngOnInit() {
-    this.gameId = this.route.snapshot.paramMap.get("gameId");
     console.log("gameId: ", this.gameId);
 
     this.gameService.init(this.gameId);
@@ -38,7 +34,7 @@ export class GamePage implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    if(this.interval){
+    if (this.interval) {
       clearInterval(this.interval);
     }
   }
@@ -47,13 +43,8 @@ export class GamePage implements OnInit, OnDestroy {
     await this.gameService.startGame();
   }
 
-  async onOptionClick(option: RoundOption) {
-    await this.gameService.selectOption(option);
-  }
-
   getGameStateText() {
-    switch (this.gameService.game.gameState)
-    {
+    switch (this.gameService.game.gameState) {
 
       case this.gameStates.prepare:
         return "Wait for your friend to join and than pres 'Start the game'";
@@ -68,4 +59,5 @@ export class GamePage implements OnInit, OnDestroy {
         return "Congrats to the winner"
     }
   }
+
 }

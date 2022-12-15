@@ -17,6 +17,8 @@ export class GameListComponent implements OnInit {
   ) {
   }
 
+
+
   async ngOnInit() {
     await this.gameListService.reloadGames();
   }

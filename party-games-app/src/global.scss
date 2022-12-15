@@ -13,13 +13,19 @@
 @tailwind components;
 @tailwind utilities;
 
+$fa-font-path:"~@fortawesome/fontawesome-pro/webfonts";
+@import'~@fortawesome/fontawesome-pro/scss/fontawesome';
+@import'~@fortawesome/fontawesome-pro/scss/solid';
+@import'~@fortawesome/fontawesome-pro/scss/regular';
+@import'~@fortawesome/fontawesome-pro/scss/light';
+@import'~@fortawesome/fontawesome-pro/scss/brands';
+
 /* Optional CSS utils that can be commented out */
 @import "~@ionic/angular/css/padding.css";
 @import "~@ionic/angular/css/float-elements.css";
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
-
 
 .toast-success {
   --background: var(--ion-color-primary);
@@ -40,16 +46,12 @@
   src: url("assets/fonts/trueno/truenorg.otf");
 }
 
-
 @font-face {
   font-family: 'IMPACTED';
   font-style: normal;
   font-weight: normal;
   src: url('assets/fonts/IMPACTED.ttf');
 }
-
-
-
 
 @font-face {
   font-family: 'Luckiest Guy';

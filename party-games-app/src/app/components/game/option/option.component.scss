@@ -1,0 +1,21 @@
+.btn{
+  @apply p-3 m-3 bg-blue-500 rounded-xl text-white text-lg font-semibold;
+  border: 2px solid #0000;
+}
+
+.is-clickable {
+  box-shadow: 0 0 5px black;
+  cursor: pointer;
+}
+
+.is-selected {
+  border: 2px solid black;
+}
+
+.is-correct {
+  @apply bg-green-500;
+}
+
+.is-wrong {
+  @apply bg-red-500;
+}

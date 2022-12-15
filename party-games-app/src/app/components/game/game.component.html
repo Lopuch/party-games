@@ -1,0 +1,59 @@
+<div class="relative m-5 mb-0">
+  <div *ngIf="gameService.game as game">
+    <div class="subtitle">
+      {{game.name}}
+    </div>
+    <app-player-list></app-player-list>
+
+
+    <div *ngIf="game.gameState === gameStates.prepare" class="text-center mt-20">
+      <ion-button (click)="onStartGameClick()">
+        Start game
+      </ion-button>
+    </div>
+
+
+    <div *ngIf="game.gameState === gameStates.play || game.gameState === gameStates.roundEvaluation">
+      <div class="title">
+        {{getGameStateText()}}
+      </div>
+
+      <div class="title">
+        {{game.round.title.text}}
+      </div>
+
+
+      <!-- Options -->
+      <div class="flex flex-wrap">
+        <div *ngFor="let option of game.round.options; let i = index" style="width: 50%; text-align: center">
+
+          <app-option [option]="option" ></app-option>
+
+        </div>
+      </div>
+
+      <!-- Last results -->
+      <div>
+        Last results:
+      </div>
+      <div *ngFor="let lastResult of game.lastResults; let i = index">
+        {{i + 1}}.) {{lastResult.playerName}}: {{lastResult.points}} pts.
+      </div>
+
+      <!-- Results -->
+      <div class="mt-5">
+        Overall results:
+      </div>
+      <div *ngFor="let result of game.results">
+        {{result.playerName}}: {{result.points}} pts.
+      </div>
+    </div>
+
+    <!--<div class="mt-20">-->
+    <!--  {{game | json}}-->
+    <!--</div>-->
+
+  </div>
+</div>
+
+

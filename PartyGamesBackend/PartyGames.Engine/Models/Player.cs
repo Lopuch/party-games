@@ -10,6 +10,7 @@ namespace PartyGames.Engine.Models
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
+        public int Points { get; set; }
 
         public Player(Guid id, string name)
         {

@@ -46,7 +46,8 @@ namespace PartyGames.Engine.Models
         {
             if (Players.Contains(player))
             {
-                throw new ArgumentException("The game already contains this player");
+                return;
+                //throw new ArgumentException("The game already contains this player");
             }
 
             Players.Add(player);
@@ -93,6 +94,9 @@ namespace PartyGames.Engine.Models
                 correctAnswersToSolve.Remove(answer);
                 playersToSolve.Remove(answer.Player);
 
+                answer.Player.Points+= pointsToGive;
+
+
                 pointsToGive--;
             }
 
@@ -113,6 +117,8 @@ namespace PartyGames.Engine.Models
             LastResults.AddRange(roundResults);
 
             Results.AddRange(roundResults);
+
+            Round.Options.First(x=>x.IsCorrect).PublicIsCorrect= true;
         }
 
         private void NextRound()
@@ -206,7 +212,7 @@ namespace PartyGames.Engine.Models
                     ));
             }
 
-            resList = resList.OrderBy(x=>x.Points).ToList();
+            resList = resList.OrderByDescending(x=>x.Points).ToList();
 
             return resList.ToList();
         }

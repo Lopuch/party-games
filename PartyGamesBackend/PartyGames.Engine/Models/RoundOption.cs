@@ -10,6 +10,7 @@ namespace PartyGames.Engine.Models
     {
         public string Text { get; set; }
         public bool IsCorrect { get; set; }
+        public bool? PublicIsCorrect { get; set; }
 
         public RoundOption(string text, bool isCorrect)
         {

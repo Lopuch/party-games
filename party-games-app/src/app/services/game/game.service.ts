@@ -1,6 +1,6 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
-import {Game} from "../../models/game";
+import {Game, GameStates_Enum} from "../../models/game";
 import {environment} from "../../../environments/environment";
 import {AuthService} from "../shared/auth.service";
 import {RoundOption} from "../../models/round-option";
@@ -11,6 +11,8 @@ import {RoundOption} from "../../models/round-option";
 export class GameService {
 
   private gameId: string;
+
+  public selectedOptionIndex: number;
 
   game: Game;
 
@@ -39,7 +41,21 @@ export class GameService {
       throw new Error("GameService is not initialized");
     }
 
+    const prevGameState = this.game?.gameState;
+
     this.game = await this.httpClient.get<Game>(`${environment.apiUrl}game/getGame/${this.gameId}`).toPromise();
+
+    if(!prevGameState){
+      this.selectedOptionIndex = undefined;
+      return;
+    }
+
+
+    if(
+      prevGameState === GameStates_Enum.roundEvaluation &&
+      this.game.gameState === GameStates_Enum.play){
+      this.selectedOptionIndex = undefined;
+    }
   }
 
   async startGame(){
@@ -50,12 +66,18 @@ export class GameService {
   }
 
   async selectOption(option: RoundOption){
+    if(this.selectedOptionIndex !== undefined){
+      return;
+    }
+
     const optionIndex = this.game.round?.options?.indexOf(option);
 
     await this.httpClient.post<void>(`${environment.apiUrl}game/selectOption`, {
       gameId: this.gameId,
       playerId: this.authService.user.id,
-      optionIndex,
+      optionIndex: optionIndex,
     }).toPromise();
+
+    this.selectedOptionIndex = optionIndex
   }
 }
