@@ -1,3 +1,9 @@
 <div class="flex items-center gap-1">
-  <i class="fas fa-user"></i> {{player.name}} <app-player-points [points]="player.points" ></app-player-points>
+  <i class="fas fa-user"></i> {{player.name}}
+  <app-player-points [points]="player.points"></app-player-points>
+  <div class="w-10 text-center">
+    <div *ngIf="isNewPointsVisible()" class="bg-green-400 font-bold px-1 rounded-lg">
+      +{{getNewPoints()}}
+    </div>
+  </div>
 </div>

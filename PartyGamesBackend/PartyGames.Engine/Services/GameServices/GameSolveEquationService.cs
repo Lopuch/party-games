@@ -138,7 +138,9 @@ namespace PartyGames.Engine.Services.GameServices
             Expression e = new Expression(expression);
             var result = e.Evaluate();
 
-            return Convert.ToDouble(result);
+            var doubleRes = Convert.ToDouble(result);
+
+            return Math.Round(doubleRes, 2);
         }
 
 

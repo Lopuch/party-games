@@ -18,7 +18,7 @@ builder.Services.AddCors(options =>
     options.AddPolicy(name: "AllowedOrigins",
         builder =>
         {
-            builder.WithOrigins("http://localhost:8100");
+            builder.WithOrigins("http://localhost:8100", "https://party-games-app.azurewebsites.net");
             builder.AllowAnyHeader();
             builder.AllowAnyMethod();
         });

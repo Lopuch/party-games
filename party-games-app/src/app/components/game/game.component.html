@@ -32,21 +32,23 @@
         </div>
       </div>
 
-      <!-- Last results -->
-      <div>
-        Last results:
-      </div>
-      <div *ngFor="let lastResult of game.lastResults; let i = index">
-        {{i + 1}}.) {{lastResult.playerName}}: {{lastResult.points}} pts.
-      </div>
+      <app-timer></app-timer>
 
-      <!-- Results -->
-      <div class="mt-5">
-        Overall results:
-      </div>
-      <div *ngFor="let result of game.results">
-        {{result.playerName}}: {{result.points}} pts.
-      </div>
+      <!-- Last results -->
+      <!--<div>-->
+      <!--  Last results:-->
+      <!--</div>-->
+      <!--<div *ngFor="let lastResult of game.lastResults; let i = index">-->
+      <!--  {{i + 1}}.) {{lastResult.playerName}}: {{lastResult.points}} pts.-->
+      <!--</div>-->
+
+      <!--&lt;!&ndash; Results &ndash;&gt;-->
+      <!--<div class="mt-5">-->
+      <!--  Overall results:-->
+      <!--</div>-->
+      <!--<div *ngFor="let result of game.results">-->
+      <!--  {{result.playerName}}: {{result.points}} pts.-->
+      <!--</div>-->
     </div>
 
     <!--<div class="mt-20">-->

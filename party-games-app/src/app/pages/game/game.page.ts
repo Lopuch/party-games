@@ -30,10 +30,10 @@ export class GamePage implements OnInit, OnDestroy {
 
     this.gameService.init(this.gameId);
 
-    await this.gameService.reloadGame();
+    //await this.gameService.reloadGame();
 
     this.interval = setInterval(async () => {
-      await this.gameService.reloadGame();
+      //await this.gameService.reloadGame();
     }, 1000);
   }
 

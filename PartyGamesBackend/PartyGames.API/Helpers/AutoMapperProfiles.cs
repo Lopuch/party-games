@@ -13,7 +13,7 @@ namespace PartyGames.API.Helpers
                 .ForMember(dest => dest.GameState, opts => opts.MapFrom(src => src.GetGameState()))
                 .ForMember(dest => dest.Players, opts => opts.MapFrom(src=>src.GetPlayers()))
                 .ForMember(dest => dest.Round, opts => opts.MapFrom(src => src.GetRound()))
-                .ForMember(dest => dest.Results, opts => opts.MapFrom(src => src.GetResults()))
+                //.ForMember(dest => dest.Results, opts => opts.MapFrom(src => src.GetResults()))
                 .ForMember(dest => dest.LastResults, opts => opts.MapFrom(src => src.GetLastResults()))
                 ;
             CreateMap<Round, RoundDto>();

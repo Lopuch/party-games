@@ -6,6 +6,7 @@ import {PlayerListComponent} from "./player-list/player-list.component";
 import {PlayerDetailComponent} from "./player-detail/player-detail.component";
 import {PlayerPointsComponent} from "./player-points/player-points.component";
 import {OptionComponent} from "./option/option.component";
+import {TimerComponent} from "./timer/timer.component";
 
 @NgModule({
   imports: [
@@ -15,7 +16,7 @@ import {OptionComponent} from "./option/option.component";
   exports: [
     GameComponent
   ],
-  declarations: [GameComponent, PlayerListComponent, PlayerDetailComponent, PlayerPointsComponent, OptionComponent]
+  declarations: [GameComponent, PlayerListComponent, PlayerDetailComponent, PlayerPointsComponent, OptionComponent, TimerComponent]
 })
 export class GameModule {
 }

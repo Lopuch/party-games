@@ -30,7 +30,7 @@ export class GameComponent implements OnInit {
 
     this.interval = setInterval(async () => {
       await this.gameService.reloadGame();
-    }, 1000);
+    }, 500);
   }
 
   ngOnDestroy() {

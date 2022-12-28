@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
   appPrefix: "party-games-",
-  apiUrl: "https://localhost:7023/api/",
+  apiUrl: "https://party-games-api.azurewebsites.net/api/",
 };

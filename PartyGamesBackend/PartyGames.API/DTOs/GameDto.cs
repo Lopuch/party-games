@@ -15,18 +15,18 @@ namespace PartyGames.API.DTOs
         public GameStates GameState { get; set; }
         public List<PlayerDto> Players { get; set; }
         public RoundDto? Round { get; set; }
-        public List<ResultDto> Results { get; set; }
+        //public List<ResultDto> Results { get; set; }
         public List<ResultDto> LastResults { get; set; }
 
 
-        public GameDto(string name, Guid id, GameStates gameState, List<PlayerDto> players, RoundDto? round, List<ResultDto> results, List<ResultDto> lastResults)
+        public GameDto(string name, Guid id, GameStates gameState, List<PlayerDto> players, RoundDto? round, /*List<ResultDto> results,*/ List<ResultDto> lastResults)
         {
             Name = name;
             Id = id;
             GameState = gameState;
             Players = players;
             Round = round;
-            Results = results;
+            //Results = results;
             LastResults = lastResults;
         }
     }

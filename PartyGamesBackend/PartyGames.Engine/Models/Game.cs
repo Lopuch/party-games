@@ -25,7 +25,7 @@ namespace PartyGames.Engine.Models
         private readonly CancellationTokenSource _timerCancelSource;
         private readonly CancellationToken _timerCancel;
 
-
+        private DateTime LastActionDate { get; set; } = DateTime.Now;
 
         public Game(string name)
         {
@@ -39,7 +39,7 @@ namespace PartyGames.Engine.Models
 
         public List<Player> GetPlayers()
         {
-            return Players.ToList();
+            return Players.OrderByDescending(x=>x.Points).ToList();
         }
 
         public void AddPlayer(Player player)
@@ -106,7 +106,7 @@ namespace PartyGames.Engine.Models
                 roundResults.Add(
                     new Result(
                         player,
-                        0
+                        null
                         )
                     );
 
@@ -134,7 +134,12 @@ namespace PartyGames.Engine.Models
             {
                 while (await _timer.WaitForNextTickAsync(_timerCancel) && !_timerCancel.IsCancellationRequested)
                 {
-                    if(GameState == GameStates.Play)
+                    if (DateTime.Now - LastActionDate > TimeSpan.FromMinutes(10))
+                    {
+                        Finish();
+                    }
+
+                    if (GameState == GameStates.Play)
                     {
                         if(Round!.EndTime < DateTime.Now)
                         {
@@ -156,16 +161,21 @@ namespace PartyGames.Engine.Models
                     {
                         return;
                     }
+
+                    
                 }
+
+                return;
             });
         }
 
-        
 
         
 
         public void SelectOption(Player player, int optionIndex)
         {
+            this.LastActionDate = DateTime.Now;
+
             if (GameState != GameStates.Play)
             {
                 throw new InvalidOperationException("Game is not in 'Play' state");

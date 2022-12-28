@@ -72,12 +72,21 @@ export class GameService {
 
     const optionIndex = this.game.round?.options?.indexOf(option);
 
-    await this.httpClient.post<void>(`${environment.apiUrl}game/selectOption`, {
-      gameId: this.gameId,
-      playerId: this.authService.user.id,
-      optionIndex: optionIndex,
-    }).toPromise();
+    const prevSelectedOptionIndex = this.selectedOptionIndex;
 
-    this.selectedOptionIndex = optionIndex
+    this.selectedOptionIndex = optionIndex;
+
+    try {
+      await this.httpClient.post<void>(`${environment.apiUrl}game/selectOption`, {
+        gameId: this.gameId,
+        playerId: this.authService.user.id,
+        optionIndex: optionIndex,
+      }).toPromise();
+    }
+    catch{
+      this.selectedOptionIndex = prevSelectedOptionIndex;
+    }
+
+
   }
 }

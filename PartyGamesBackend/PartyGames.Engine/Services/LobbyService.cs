@@ -17,11 +17,18 @@ namespace PartyGames.Engine.Services
         private readonly PartyGamesEngine _engine;
         private readonly PlayerService _playerService;
 
+        private readonly PeriodicTimer _timer = new(TimeSpan.FromMilliseconds(1000));
+        private readonly CancellationTokenSource _timerCancelSource;
+        private readonly CancellationToken _timerCancel;
+
         public LobbyService(IMapper mapper, PartyGamesEngine engine, PlayerService playerService)
         {
             _mapper = mapper;
             _engine = engine;
             _playerService = playerService;
+
+            _timerCancelSource = new CancellationTokenSource();
+            _timerCancel = _timerCancelSource.Token;
         }
 
         public IGame CreateGame(string name)
@@ -42,6 +49,8 @@ namespace PartyGames.Engine.Services
 
         public List<IGame> GetGames()
         {
+            RemoveFinishedGames();
+
             return _engine.Games;
         }
 
@@ -109,6 +118,13 @@ namespace PartyGames.Engine.Services
         private string SanitizeName(string name)
         {
             return name.Trim();
+        }
+
+        private void RemoveFinishedGames()
+        {
+            var gamesToRemove = _engine.Games.Where(x => x.GetGameState() == Enums.GameEnum.GameStates.Finish).ToList();
+
+            gamesToRemove.ForEach(x=>_engine.Games.Remove(x));
         }
     }
 }

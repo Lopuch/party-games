@@ -8,7 +8,7 @@ export class Game {
   round?: Round;
   players?: Player[];
   gameState: GameStates_Enum;
-  results: Result[];
+  //results: Result[];
   lastResults: Result[];
 }
 
