@@ -10,6 +10,7 @@ export class Game {
   gameState: GameStates_Enum;
   //results: Result[];
   lastResults: Result[];
+  type: "solveEvaluation" | "mostImages";
 }
 
 export enum GameStates_Enum {

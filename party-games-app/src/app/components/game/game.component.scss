@@ -1,17 +1,27 @@
-.title{
+.title {
   font-size: 30px;
   text-align: center;
 }
 
-.subtitle{
+.subtitle {
   font-size: 20px;
   text-align: center;
 }
 
-.is-wrong{
+.is-wrong {
   color: red;
 }
 
-.is-correct{
+.is-correct {
   color: green;
+}
+
+.option-evaluation {
+  width: 50%;
+  text-align: center
+}
+
+.option-most-images {
+  width: 20%;
+  text-align: center
 }

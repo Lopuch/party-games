@@ -1,8 +1,14 @@
 <div class="inline-block select-none">
   <div class="btn "
        [ngClass]="{'is-clickable': isClickable(), 'is-selected': isSelected(), 'is-correct': isCorrect(), 'is-wrong': isWrong()}"
-        (click)="onClick()"
+       (click)="onClick()"
   >
-    {{option.text}}
+    <div *ngIf="gameService.game.type === 'solveEvaluation'">
+      {{option.text}}
+    </div>
+
+    <div *ngIf="gameService.game.type === 'mostImages'">
+      <img [src]="option.text" />
+    </div>
   </div>
 </div>

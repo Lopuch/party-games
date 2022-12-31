@@ -15,6 +15,7 @@ namespace PartyGames.API.Helpers
                 .ForMember(dest => dest.Round, opts => opts.MapFrom(src => src.GetRound()))
                 //.ForMember(dest => dest.Results, opts => opts.MapFrom(src => src.GetResults()))
                 .ForMember(dest => dest.LastResults, opts => opts.MapFrom(src => src.GetLastResults()))
+                .ForMember(dest => dest.Type, opts => opts.MapFrom(src => src.GetGameType()))
                 ;
             CreateMap<Round, RoundDto>();
             CreateMap<RoundTitle, RoundTitleDto>();

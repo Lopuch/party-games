@@ -8,6 +8,11 @@ namespace PartyGames.Engine.Models
 {
     public class RoundOption
     {
+        public override string ToString()
+        {
+            return $"{IsCorrect} {Text}";
+        }
+
         public string Text { get; set; }
         public bool IsCorrect { get; set; }
         public bool? PublicIsCorrect { get; set; }

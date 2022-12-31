@@ -19,5 +19,6 @@ namespace PartyGames.Engine.Models
         Round? GetRound();
         List<Result> GetResults();
         List<Result> GetLastResults();
+        string GetGameType();
     }
 }

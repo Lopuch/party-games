@@ -31,7 +31,8 @@ namespace PartyGames.Engine.Models
         {
             Id = Guid.NewGuid();
             Name = name;
-            _gameService = new GameSolveEquationService();
+            //_gameService = new GameSolveEquationService();
+            _gameService = new GameMostImagesService();
 
             _timerCancelSource = new CancellationTokenSource();
             _timerCancel = _timerCancelSource.Token;
@@ -119,6 +120,8 @@ namespace PartyGames.Engine.Models
             Results.AddRange(roundResults);
 
             Round.Options.First(x=>x.IsCorrect).PublicIsCorrect= true;
+
+            Round.Options.Where(x => x.IsCorrect).ToList().ForEach(x => x.PublicIsCorrect = true);
         }
 
         private void NextRound()
@@ -141,7 +144,9 @@ namespace PartyGames.Engine.Models
 
                     if (GameState == GameStates.Play)
                     {
-                        if(Round!.EndTime < DateTime.Now)
+                        SetEndTimeToNowIfEveryPlayerAnswered();
+
+                        if(Round!.EndTime <= DateTime.Now)
                         {
                             EvaluateRound();
                             continue;
@@ -169,7 +174,14 @@ namespace PartyGames.Engine.Models
             });
         }
 
+        private void SetEndTimeToNowIfEveryPlayerAnswered()
+        {
 
+            if(RoundAnswers.Count == Players.Count)
+            {
+                Round!.EndTime = DateTime.Now;
+            }
+        }
         
 
         public void SelectOption(Player player, int optionIndex)
@@ -230,6 +242,21 @@ namespace PartyGames.Engine.Models
         public List<Result> GetLastResults()
         {
             return LastResults.ToList();
+        }
+
+        public string GetGameType()
+        {
+            if(_gameService is GameSolveEquationService)
+            {
+                return "solveEvaluation";
+            }
+
+            if(_gameService is GameMostImagesService)
+            {
+                return "mostImages";
+            }
+
+            throw new Exception("Unknown game type");
         }
 
     }

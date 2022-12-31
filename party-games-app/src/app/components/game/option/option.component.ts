@@ -19,6 +19,8 @@ export class OptionComponent implements OnInit {
   ngOnInit() {}
 
   onClick(){
+    console.log("Click");
+
     if(!this.isClickable()){
       return;
     }

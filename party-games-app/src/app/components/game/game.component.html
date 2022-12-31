@@ -25,11 +25,13 @@
 
       <!-- Options -->
       <div class="flex flex-wrap">
-        <div *ngFor="let option of game.round.options; let i = index" style="width: 50%; text-align: center">
+          <div *ngFor="let option of game.round.options; let i = index" [ngClass]="{'option-evaluation': game.type === 'solveEvaluation', 'option-most-images' : game.type === 'mostImages'}">
 
-          <app-option [option]="option" ></app-option>
+            <app-option [option]="option"></app-option>
 
-        </div>
+          </div>
+
+
       </div>
 
       <app-timer></app-timer>
