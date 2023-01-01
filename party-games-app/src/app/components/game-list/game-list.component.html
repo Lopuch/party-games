@@ -1,10 +1,19 @@
-<ion-button (click)="onCreateGameClick()" >
-  Create game
-</ion-button>
+<div class="flex flex-col items-center" >
+  <ion-input
+    [(ngModel)]="newGameName"
+    placeholder="Name your new game"
+    style="background: #e1fcff; border-radius: 5px"
+  ></ion-input>
 
-<div>
-  Real games:
+  <ion-button (click)="onCreateGameClick()" [disabled]="!newGameName">
+    Create game
+  </ion-button>
+
+  <div class="mt-5 mb-2 text-xl">
+    List of games:
+  </div>
+
+
+  <app-game-card *ngFor="let game of gameListService.games" [game]="game" class="mb-5"></app-game-card>
+
 </div>
-
-<app-game-card *ngFor="let game of gameListService.games" [game]="game"></app-game-card>
-

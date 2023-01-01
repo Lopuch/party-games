@@ -10,11 +10,14 @@ import {GameListService} from "../../services/game/game-list.service";
 })
 export class GameListComponent implements OnInit {
 
+  newGameName: string;
+
   constructor(
     public gameService: GameService,
     public gameListService: GameListService,
     private navController: NavController,
   ) {
+    this.newGameName = "MyGame" + Math.ceil(Math.random()*1000);
   }
 
 
@@ -24,7 +27,7 @@ export class GameListComponent implements OnInit {
   }
 
   async onCreateGameClick() {
-    const createdGame = await this.gameService.createGame("test game 1");
+    const createdGame = await this.gameService.createGame(this.newGameName);
     console.log("Created game: ", createdGame);
 
     await this.gameService.joinGame(createdGame.id);

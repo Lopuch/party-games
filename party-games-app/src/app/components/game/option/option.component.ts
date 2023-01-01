@@ -64,4 +64,7 @@ export class OptionComponent implements OnInit {
     return this.gameService.game.round.options.indexOf(this.option);
   }
 
+  isContentImage() {
+    return this.gameService.game.type === 'mostImages';
+  }
 }

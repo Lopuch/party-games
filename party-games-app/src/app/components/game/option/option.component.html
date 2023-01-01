@@ -1,6 +1,12 @@
 <div class="inline-block select-none">
-  <div class="btn "
-       [ngClass]="{'is-clickable': isClickable(), 'is-selected': isSelected(), 'is-correct': isCorrect(), 'is-wrong': isWrong()}"
+  <div class="btn"
+       [ngClass]="{
+        'is-clickable': isClickable(),
+        'is-selected': isSelected(),
+        'is-correct': isCorrect(),
+        'is-wrong': isWrong(),
+        'is-content-image': isContentImage()
+        }"
        (click)="onClick()"
   >
     <div *ngIf="gameService.game.type === 'solveEvaluation'">

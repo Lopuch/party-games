@@ -1,4 +1,4 @@
-<div class="flex items-center gap-1">
+<div class="flex items-center gap-1" [ngClass]="{'is-me': isMe()}">
   <i class="fas fa-user"></i> {{player.name}}
   <app-player-points [points]="player.points"></app-player-points>
   <div class="w-10 text-center">

@@ -1,6 +1,11 @@
 <div>
-  <div>
-    {{game.name}} {{game.id}}
+  <div class="text-xl">
+    {{game.name}}
+  </div>
+  <div class="flex flex-col items-center">
+    <div *ngFor="let player of game.players">
+      {{player.name}}
+    </div>
   </div>
   <div>
     <ion-button (click)="onJoinGameClick()">Join game</ion-button>

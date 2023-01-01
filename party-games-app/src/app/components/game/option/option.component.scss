@@ -3,6 +3,10 @@
   border: 2px solid #0000;
 }
 
+.is-content-image{
+  @apply p-1 m-1
+}
+
 .is-clickable {
   box-shadow: 0 0 5px black;
   cursor: pointer;

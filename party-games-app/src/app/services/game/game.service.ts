@@ -43,7 +43,8 @@ export class GameService {
 
     const prevGameState = this.game?.gameState;
 
-    this.game = await this.httpClient.get<Game>(`${environment.apiUrl}game/getGame/${this.gameId}`).toPromise();
+    const res = await this.httpClient.get<Game>(`${environment.apiUrl}game/getGame/${this.gameId}`).toPromise();
+    this.assignNewValuesToGame(res);
 
     if(!prevGameState){
       this.selectedOptionIndex = undefined;
@@ -89,4 +90,20 @@ export class GameService {
 
 
   }
+
+  private assignNewValuesToGame(gameRes: Game){
+    if(!this.game){
+      this.game = gameRes;
+      return;
+    }
+
+    const gameJson = JSON.stringify(this.game);
+    const gameResJson = JSON.stringify(gameRes);
+
+    if(gameJson !== gameResJson){
+      this.game = gameRes;
+      console.log("Nova hra");
+    }
+  }
+
 }

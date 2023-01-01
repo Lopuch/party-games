@@ -47,13 +47,13 @@ export class GameComponent implements OnInit {
     switch (this.gameService.game.gameState) {
 
       case this.gameStates.prepare:
-        return "Wait for your friend to join and than pres 'Start the game'";
+        return "Wait for your friends to join and then pres 'Start the game'";
 
       case this.gameStates.play:
-        return "Select an option";
+        return "Play";
 
       case this.gameStates.roundEvaluation:
-        return "Prepare for the next round";
+        return "Prepare";
 
       case this.gameStates.finish:
         return "Congrats to the winner"
