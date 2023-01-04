@@ -132,5 +132,10 @@ namespace PartyGames.Engine.Services.GameServices
         {
             _offsetId = _random.Next() % 1000;
         }
+
+        public string GetGameType()
+        {
+            return "mostImages";
+        }
     }
 }

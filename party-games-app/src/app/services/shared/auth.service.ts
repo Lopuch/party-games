@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {User} from "../../models/user";
 import {environment} from "../../../environments/environment";
 import {HttpClient} from "@angular/common/http";
+import {NavController} from "@ionic/angular";
 
 @Injectable({
   providedIn: 'root'
@@ -15,6 +16,7 @@ export class AuthService {
 
   constructor(
     private httpClient: HttpClient,
+    private navController:NavController,
   ) {
     this.loadUser();
   }
@@ -25,6 +27,7 @@ export class AuthService {
 
   async login(name: string){
     this.user = await this.httpClient.post<User>(`${environment.apiUrl}player/login`,{name}).toPromise();
+    console.log("Login user: ", this.user);
     this.saveUser();
   }
 
@@ -47,4 +50,11 @@ export class AuthService {
     );
   }
 
+  logout() {
+    this.user = undefined;
+
+    localStorage.removeItem(this.userLocalStorageKey);
+    this.navController.navigateForward("/").then();
+
+  }
 }

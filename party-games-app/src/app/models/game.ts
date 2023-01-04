@@ -11,6 +11,7 @@ export class Game {
   //results: Result[];
   lastResults: Result[];
   type: "solveEvaluation" | "mostImages";
+  allowedGameTypes: string[];
 }
 
 export enum GameStates_Enum {

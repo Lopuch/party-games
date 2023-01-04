@@ -1,8 +1,25 @@
 <div class="relative m-5 mb-0">
-  <div *ngIf="gameService.game as game">
-    <div class="subtitle">
-      {{game.name}}
+
+  <div class="flex justify-between">
+    <!-- Left side -->
+    <div >
+      <i class="fas fa-home cursor-pointer" (click)="onHomeClick()"></i>
     </div>
+
+    <!-- Middle -->
+    <div class="subtitle">
+      {{gameService.game?.name}}
+    </div>
+
+    <!-- Right side -->
+    <div class="relative" >
+      <app-game-settings class="absolute" style="right: 0;"></app-game-settings>
+      <i class="fas fa-gears cursor-pointer" (click)="onSettingsClick()"></i>
+    </div>
+  </div>
+
+
+  <div *ngIf="gameService.game as game">
     <app-player-list></app-player-list>
 
 
@@ -25,11 +42,12 @@
 
       <!-- Options -->
       <div class="flex flex-wrap justify-center">
-          <div *ngFor="let option of game.round.options; let i = index" [ngClass]="{'option-evaluation': game.type === 'solveEvaluation', 'option-most-images' : game.type === 'mostImages'}">
+        <div *ngFor="let option of game.round.options; let i = index"
+             [ngClass]="{'option-evaluation': game.type === 'solveEvaluation', 'option-most-images' : game.type === 'mostImages'}">
 
-            <app-option [option]="option"></app-option>
+          <app-option [option]="option"></app-option>
 
-          </div>
+        </div>
 
 
       </div>

@@ -69,5 +69,21 @@ namespace PartyGames.API.Controllers
 
             return Ok();
         }
+
+        [HttpPost("enableGameType")]
+        public async Task<IActionResult> EnableGameType(Game_EnableGameTypeDto dto)
+        {
+            _lobbyService.EnableGameType(dto.GameId, dto.GameType);
+
+            return Ok();
+        }
+
+        [HttpPost("disableGameType")]
+        public async Task<IActionResult> DisableGameType(Game_EnableGameTypeDto dto)
+        {
+            _lobbyService.DisableGameType(dto.GameId, dto.GameType);
+
+            return Ok();
+        }
     }
 }

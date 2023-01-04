@@ -106,4 +106,18 @@ export class GameService {
     }
   }
 
+  public async enableGameType(gameType: string){
+    await this.httpClient.post<Game>(`${environment.apiUrl}game/enableGameType`,{
+      gameId: this.gameId,
+      gameType,
+    }).toPromise();
+  }
+
+  public async disableGameType(gameType: string){
+    await this.httpClient.post<Game>(`${environment.apiUrl}game/disableGameType`,{
+      gameId: this.gameId,
+      gameType,
+    }).toPromise();
+  }
+
 }

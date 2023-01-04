@@ -11,5 +11,7 @@ namespace PartyGames.Engine.Services.GameServices
     {
         Round GenerateNextRound();
 
+        string GetGameType();
+
     }
 }

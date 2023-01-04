@@ -126,5 +126,17 @@ namespace PartyGames.Engine.Services
 
             gamesToRemove.ForEach(x=>_engine.Games.Remove(x));
         }
+
+        public void EnableGameType(Guid gameId, string gameType)
+        {
+            var game = GetGameById(gameId);
+            game.EnableGameType(gameType);
+        }
+
+        public void DisableGameType(Guid gameId, string gameType)
+        {
+            var game = GetGameById(gameId);
+            game.DisableGameType(gameType);
+        }
     }
 }

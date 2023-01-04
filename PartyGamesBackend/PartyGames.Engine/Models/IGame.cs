@@ -20,5 +20,8 @@ namespace PartyGames.Engine.Models
         List<Result> GetResults();
         List<Result> GetLastResults();
         string GetGameType();
+        List<string> GetAllowedGameTypes();
+        void EnableGameType(string gameType);
+        void DisableGameType(string gameType);
     }
 }

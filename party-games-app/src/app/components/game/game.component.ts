@@ -2,6 +2,8 @@ import {Component, Input, OnInit} from "@angular/core";
 import {GameStates_Enum} from "../../models/game";
 import {GameService} from "../../services/game/game.service";
 import {RoundOption} from "../../models/round-option";
+import {NavController} from "@ionic/angular";
+import {GameSettingsService} from "../../services/game-settings/game-settings.service";
 
 @Component({
   selector: "app-game",
@@ -16,8 +18,12 @@ export class GameComponent implements OnInit {
 
   interval;
 
+  isSettingsVisible = false;
+
   constructor(
     public gameService: GameService,
+    private navController: NavController,
+    private gameSettingsService: GameSettingsService,
   ) {
   }
 
@@ -60,4 +66,11 @@ export class GameComponent implements OnInit {
     }
   }
 
+  onHomeClick() {
+    this.navController.navigateRoot("/").then();
+  }
+
+  onSettingsClick() {
+    this.gameSettingsService.isVisible = !this.gameSettingsService.isVisible;
+  }
 }

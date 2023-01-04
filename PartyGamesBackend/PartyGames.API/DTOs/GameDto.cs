@@ -18,6 +18,7 @@ namespace PartyGames.API.DTOs
         //public List<ResultDto> Results { get; set; }
         public required List<ResultDto> LastResults { get; set; }
         public required string Type { get; set; }
+        public required List<string> AllowedGameTypes { get; set; }
 
 
         

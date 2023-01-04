@@ -191,5 +191,10 @@ namespace PartyGames.Engine.Services.GameServices
 
             throw new ArgumentException("Unknown operator");
         }
+
+        public string GetGameType()
+        {
+            return "solveEvaluation";
+        }
     }
 }

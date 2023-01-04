@@ -1,4 +1,5 @@
 ﻿using PartyGames.Engine.Services.GameServices;
+using System.Security.Cryptography.X509Certificates;
 using System.Threading;
 using static PartyGames.Engine.Enums.GameEnum;
 
@@ -9,7 +10,10 @@ namespace PartyGames.Engine.Models
 
         public Guid Id { get; private set; }
         public string Name { get; private set; }
+        public List<(bool, IGameService)> _gameServiceList { get; private set; }
         public IGameService _gameService;
+
+        private readonly Random _random = new Random();
 
 
         private List<Player> Players { get; set; } = new List<Player>();
@@ -31,8 +35,17 @@ namespace PartyGames.Engine.Models
         {
             Id = Guid.NewGuid();
             Name = name;
+
+            _gameServiceList = new List<(bool, IGameService)>
+            {
+                (true, new GameSolveEquationService()),
+                (true, new GameMostImagesService()),
+            };
+
             //_gameService = new GameSolveEquationService();
-            _gameService = new GameMostImagesService();
+            //_gameService = new GameMostImagesService();
+
+            SelectGameService();
 
             _timerCancelSource = new CancellationTokenSource();
             _timerCancel = _timerCancelSource.Token;
@@ -127,8 +140,16 @@ namespace PartyGames.Engine.Models
         private void NextRound()
         {
             RoundAnswers.Clear();
+            SelectGameService();
             Round = _gameService.GenerateNextRound();
             GameState = GameStates.Play;
+        }
+
+        private void SelectGameService()
+        {
+            var enabledServices = _gameServiceList.Where(x => x.Item1 == true).Select(x=>x.Item2).ToList();
+
+            _gameService = enabledServices[_random.Next(0, enabledServices.Count)];
         }
 
         private void RunInfiniteClock()
@@ -246,17 +267,43 @@ namespace PartyGames.Engine.Models
 
         public string GetGameType()
         {
-            if(_gameService is GameSolveEquationService)
+            return _gameService.GetGameType();
+        }
+
+        public List<string> GetAllowedGameTypes()
+        {
+            return _gameServiceList.Where(x => x.Item1 == true).Select(x => x.Item2).ToList().Select(x=>x.GetGameType()).ToList();
+        }
+
+        public void EnableGameType(string gameType)
+        {
+            var service = GetGameServiceByGameType(gameType);
+            var tuple = _gameServiceList.First(x => x.Item2 == service);
+
+            _gameServiceList.Remove(tuple);
+            _gameServiceList.Add((true, service));
+        }
+
+        public void DisableGameType(string gameType)
+        {
+            var service = GetGameServiceByGameType(gameType);
+            var tuple = _gameServiceList.First(x => x.Item2 == service);
+
+            if(
+                _gameServiceList.Where(x=>x.Item1 == true).Count() == 1 &&
+                tuple.Item1 == true
+                )
             {
-                return "solveEvaluation";
+                throw new Exception("At least one game type must be enabled");
             }
 
-            if(_gameService is GameMostImagesService)
-            {
-                return "mostImages";
-            }
+            _gameServiceList.Remove(tuple);
+            _gameServiceList.Add((false, service));
+        }
 
-            throw new Exception("Unknown game type");
+        private IGameService GetGameServiceByGameType(string gameType)
+        {
+            return _gameServiceList.Where(x => x.Item2.GetGameType() == gameType).First().Item2;
         }
 
     }

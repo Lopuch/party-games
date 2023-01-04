@@ -1,0 +1,13 @@
+<div *ngIf="gameSettingsService.isVisible" class="bg-black text-white rounded-lg p-2 w-[200px] flex flex-col items-center gap-5">
+  <div class="text-right w-full">
+    <i class="fas fa-gears cursor-pointer" (click)="onCloseClick()" ></i>
+  </div>
+  <div class="flex items-center gap-1 cursor-pointer" (click)="onSolveEvaluationChanged()" >
+    <ion-checkbox [checked]="isSolveEvaluationEnabled()" ></ion-checkbox>
+    Evaluation game
+  </div>
+  <div class="flex items-center gap-1 cursor-pointer"  (click)="onMostImagesChanged()">
+    <ion-checkbox [checked]="isMostImagesEnabled()" ></ion-checkbox>
+    Most occurence game
+  </div>
+</div>
