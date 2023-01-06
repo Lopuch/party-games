@@ -1,27 +1,28 @@
+<ion-content>
+  <div class="flex flex-col items-center gap-5">
+    <div class="dancing-text">
+      <span>P</span>
+      <span>á</span>
+      <span>r</span>
+      <span>t</span>
+      <span>y</span>
+      <!--<span>a</span>-->
+      <br/>
+      <span>g</span>
+      <span>a</span>
+      <span>m</span>
+      <span>e</span>
+      <span>s</span>
+      <!--<span>n</span>-->
+    </div>
 
-<div class="flex flex-col items-center gap-5">
-  <div class="dancing-text">
-    <span>P</span>
-    <span>á</span>
-    <span>r</span>
-    <span>t</span>
-    <span>y</span>
-    <!--<span>a</span>-->
-    <br/>
-    <span>g</span>
-    <span>a</span>
-    <span>m</span>
-    <span>e</span>
-    <span>s</span>
-    <!--<span>n</span>-->
+    <app-login *ngIf="!auth.isLoggedIn()"></app-login>
+    <app-user-profile *ngIf="auth.isLoggedIn"></app-user-profile>
+
+    <div *ngIf="auth.isLoggedIn()" class="tiles-container">
+
+      <app-game-list></app-game-list>
+    </div>
+
   </div>
-
-  <app-login *ngIf="!auth.isLoggedIn()"></app-login>
-  <app-user-profile *ngIf="auth.isLoggedIn"></app-user-profile>
-
-  <div *ngIf="auth.isLoggedIn()" class="tiles-container">
-
-    <app-game-list></app-game-list>
-  </div>
-
-</div>
+</ion-content>

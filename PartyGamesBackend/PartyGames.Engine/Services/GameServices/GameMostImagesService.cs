@@ -33,7 +33,7 @@ namespace PartyGames.Engine.Services.GameServices
 
             options.Shuffle();
 
-            var title = new RoundTitle("Select the most frequently occurring image");
+            var title = new RoundTitle("Waht is the most?");
 
 
             return new Round(
